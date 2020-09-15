@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo list</title>
+    <style>
+        body {
+            background-color: rgb(135, 255, 131);
+        }
+       .box {
+            padding: 30px;
+            width:400px;
+            margin:0 auto;
+            font-size: 20px;
+            font-family: sans-serif;
+            transition:0.5s;
+        }
+        .del-img {
+            width:20px;
+            float:right;
+            opacity: 0.6;
+            border: 2px solid silver;
+            border-radius: 100%;
+            padding:10px;
+        }
+        .in-img {
+            float:left;
+            height:95%;
+            margin-right:10px;
+        }
+        .head-img {
+            width:100px;
+            display:block;
+            margin:0 auto;
+            opacity: 0.6;
+        }
+        div p, .text, .box button, .input-img {
+            border:none;
+            outline: none;
+            background-color: white;
+            border-radius:5px;
+            opacity:0.6;
+            box-shadow: 3px 3px 3px silver;
+        } 
+        div p {
+            height:100px;
+            text-align: left;
+            padding:5px;
+            width:95%;
+            opacity:1;
+            color:rgb(105, 105, 105);
+        }
+        
+        .text {
+            font-size:18px;
+            color:orange;
+            max-width:95%;
+            font-family: sans-serif;
+        }
+        .input-img {
+            height:30px;
+        }
+        .box button {
+            width:100px;
+            height:40px;
+            background-color: rgb(54, 190, 54);
+            color:white;
+            font-size: 18px;
+        }
+        .box button:hover {
+            background-color: rgb(110, 248, 110);
+        }
+        </style>
+</head>
+<body>
+    <div class="box">
+        <img src="https://cdn1.iconfinder.com/data/icons/common-version-3-0/1024/user-256.png"class="head-img">
+        <textarea cols="50" rows="3" class="text" placeholder="Оставте заметку"></textarea>
+        <input type="text" class="input-img"> Url фото 
+        <button>Добавить</button>
+    </div>
+    <script>
+        let box = document.querySelector(".box");
+        let input = document.querySelector(".text");
+        let btn = document.querySelector("button");
+        let div = document.createElement("div");
+        let inputImg = document.querySelector(".input-img");
+        let delImgSrc = "https://cdn0.iconfinder.com/data/icons/google-material-design-3-0/48/ic_delete_forever_48px-256.png";
+        
+        let h = 200;
+        let delImg;
+
+        input.onfocus = function() {
+            this.placeholder = "";
+        }
+
+        btn.onclick = () => {
+            if(input.value != "") {
+                div.innerHTML += `<p><img src="${delImgSrc}" class="del-img"> ${input.value}<img src="${inputImg.value}" class="in-img"></p>`;
+                box.appendChild(div);
+                input.value = "";
+                inputImg.value ="";
+                h += 130;
+                box.style.height = h + "px";
+                delImg =  document.querySelectorAll(".del-img");
+            }
+            //console.log(document.querySelectorAll(".del-img"));
+            for(let i = 0; i < delImg.length; i++){
+                //console.log(delImg[i].parentElement);
+                delImg[i].onclick = function() {
+                    this.parentElement.style.display = "none";
+                    h -= 130;
+                    box.style.height = h + "px";
+                }
+            }
+        }
+               
+       </script>
+</body>
+</html>
